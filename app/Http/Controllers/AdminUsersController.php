@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-
+use App\User;
+use App\Role;
 class AdminUsersController extends Controller
 {
     /**
@@ -15,7 +16,13 @@ class AdminUsersController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index');
+
+        $users = User::all();
+      // foreach ($users as $user) {
+      //     return $user->role->name;
+      // }
+
+        return view('admin.users.index',compact('users'));
     }
 
     /**
@@ -25,7 +32,11 @@ class AdminUsersController extends Controller
      */
     public function create()
     {
-         return view('admin.users.create');
+         //Koristi se za input role u formi    
+         $roles = Role::lists('name','id')->all(); 
+         //Daje listu JSON edvi sisa kurac
+         //('name','id') mora ovim redom zato sto kada dodje do select kontrole bira se name a salje se id
+        return view('admin.users.create',compact('roles'));
     }
 
     /**
@@ -36,7 +47,7 @@ class AdminUsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request->all();
     }
 
     /**

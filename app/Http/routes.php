@@ -69,3 +69,8 @@ Route::resource('admin/users','AdminUsersController');
 Route::get('/admin', function() {
     return view('admin.index');
 });
+
+
+
+
+
