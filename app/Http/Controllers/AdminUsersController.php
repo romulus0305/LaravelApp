@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
 use App\Role;
+use App\Photo;
 use App\Http\Requests\UserRequest;
+
+
+
 class AdminUsersController extends Controller
 {
     /**
@@ -50,9 +54,23 @@ class AdminUsersController extends Controller
     {
 
 
+        $input = $request->all();
 
-          User::create($request->all());
-        return redirect('admin/users');
+        //Cuva otku ako je ima
+        if ($file = $request->file('photo_id')) {
+
+            $name = time() . $file->getClientOriginalName();
+            $file->move('images',$name);
+            //Cuvanje fotke u bazi u tabeli photos
+            $photo = Photo::create(['path'=> $name]);
+            //Dodavanje id novosacuvane fotke da bi ga sacuvao u tabeli users
+            $input['photo_id'] = $photo->id;
+        }
+      
+        //Sifrovanje passworda
+        $input['password'] = bcrypt($request->password);
+        User::create($input);
+        // return redirect('admin/users');
          
     }
 

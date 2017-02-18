@@ -36,7 +36,14 @@ public function role()
 
 
 
+public function photo()
+{
 
+
+    return $this->belongsTo('App\Photo');
+
+
+}
 
 
 
