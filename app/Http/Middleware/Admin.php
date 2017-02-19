@@ -3,8 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-
-class AdminMidd
+use Illuminate\Support\Facades\Auth;
+class Admin
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,32 @@ class AdminMidd
     public function handle($request, Closure $next)
     {
 
+            if (Auth::check()) {
+
+                if (Auth::user()->isAdmin()) {
+
+                   return $next($request);
+                }
 
 
 
-        
-        return $next($request);
+                
+            }
+
+            return redirect('/');
+       
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

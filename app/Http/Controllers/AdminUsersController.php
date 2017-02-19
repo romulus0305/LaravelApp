@@ -61,7 +61,7 @@ class AdminUsersController extends Controller
         else
         {   
             $input = $request->all();
-            $input['password'] = bcrypt($request->password);
+            $input['password'] = trim(bcrypt($request->password));
 
         }
 
@@ -140,7 +140,7 @@ class AdminUsersController extends Controller
         else
         {   
             $input = $request->all();
-            $input['password'] = bcrypt($request->password);
+            $input['password'] = trim(bcrypt($request->password));
 
         }
 

@@ -59,17 +59,38 @@ Route::get('/home', 'HomeController@index');
 
 
 /* 
- kontroler sa resursima  
-
-
+ kontroler sa resursima  smesten u admin middleware
 */
-Route::resource('admin/users','AdminUsersController');
 
 
-Route::get('/admin', function() {
-    return view('admin.index');
+Route::group(['middleware'=>'admin'],function(){
+
+
+	Route::resource('/admin/users','AdminUsersController');
+
+
+
 });
 
+
+
+
+
+
+// Route::get('/admin', function() {
+//     return view('admin.index');
+// });
+
+// Route::get('role', function() {
+   
+// $user = User::find(15);
+
+// return $user->role;
+
+
+
+
+// });
 
 
 
