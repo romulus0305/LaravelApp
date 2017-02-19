@@ -53,12 +53,11 @@ public function photo()
 
        
 
-// Ne valja 
-//Trying to get property of non-object greska kada je u tabeli users role_id = null
+
 public function isAdmin()
 {
-    if (!$this->role->name == "administrator") {
-        return "pusi ga";
+    if ($this->role->name == "administrator") {
+        return true;
     }
     return false;
 }
