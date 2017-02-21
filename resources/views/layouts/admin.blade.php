@@ -48,16 +48,32 @@
 
 
 
-        <ul class="nav navbar-top-links navbar-right">
 
+               {{--  <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                 
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                            </ul>
+                        </li>
+ --}}
+
+
+        <ul class="nav navbar-top-links navbar-right">
+ @if (Auth::user()->isAdmin())
+        <a href="{{ url('/admin')}} ">Admin</a>
+@endif
 
             <!-- /.dropdown -->
             <li class="dropdown">
+           
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    <i class="fa fa-user fa-fw"></i> {{ Auth::user()->name }} <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    <li><a href="#"><i class="fa fa-user fa-fw"></i> Profile</a>
                     </li>
                     <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                     </li>
@@ -138,13 +154,13 @@
                         <a href="#"><i class="fa fa-wrench fa-fw"></i> Posts<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/posts">All Posts</a>
+                                <a href="{{route('admin.posts.index')}}">All Posts</a>
                             </li>
 
                             <li>
-                                <a href="/posts/create">Create Post</a>
+                                <a href="{{route('admin.posts.create')}}">Create Post</a>
                             </li>
-
+                            
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
@@ -331,7 +347,26 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header"></h1>
+                <h1 class="page-header">{{--logika u kontroleru napravljena --}}
+
+@if (Session::has('user_created'))
+
+<p class="bg-success col-sm-6">{{ session('user_created') }}</p>
+
+@endif
+@if (Session::has('user_edited'))
+
+<p class="bg-info col-sm-6">{{ session('user_edited') }}</p>
+
+@endif
+@if (Session::has('deleted_user'))
+
+<p class="bg-danger col-sm-6">{{ session('deleted_user') }}</p>
+
+@endif
+</h1>
+<br>
+
 
                 @yield('content')
             </div>

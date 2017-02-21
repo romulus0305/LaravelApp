@@ -53,10 +53,10 @@ public function photo()
 
        
 
-
+//Ako se buni oko ove metode pogledaj tabelu roles i sve ostala da li su popunjene
 public function isAdmin()
 {
-    if ($this->role->name == "administrator") {
+    if ($this->role->name == "administrator" && $this->is_active == 1) {
         return true;
     }
     return false;

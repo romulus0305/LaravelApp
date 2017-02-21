@@ -8,7 +8,8 @@
 
 @section('content')
 
-	<h1>Create User</h1>
+<h2>Create User</h2>
+<hr>
 
 
 

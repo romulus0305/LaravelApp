@@ -3,12 +3,14 @@
 
 
 
-
-
 @section('content')
 	
 
-<h1>Users</h1>
+
+
+
+<h2>Users</h2>
+<hr>
 <table class="table">
     <thead>
       <tr>

@@ -10,6 +10,7 @@ use App\Role;
 use App\Photo;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\EditRequest;
+use Illuminate\Support\Facades\Session;
 
 
 class AdminUsersController extends Controller
@@ -67,7 +68,7 @@ class AdminUsersController extends Controller
 
        
 
-        //Cuva otku ako je ima
+        //Cuva fotku ako je ima
         if ($file = $request->file('photo_id')) {
 
             $name = time() . $file->getClientOriginalName();
@@ -80,6 +81,9 @@ class AdminUsersController extends Controller
         
      
         User::create($input);
+
+        Session::flash('user_created','User successfull created');
+
         return redirect('admin/users');
          
     }
@@ -154,6 +158,9 @@ class AdminUsersController extends Controller
          }
 
          $user->update($input);
+
+         Session::flash('user_edited','User has been edited!');
+
          return redirect('/admin/users');
 
 
@@ -171,6 +178,45 @@ class AdminUsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+
+        $user = User::findOrFail($id);
+
+
+        //Brisanje fotke iz foldera
+        unlink(public_path() . $user->photo->path);
+        
+        $user->delete();
+
+        //prikazivanje poruke posle brisanja
+        Session::flash('deleted_user','User has been deleted!');
+
+
+
+        return redirect('/admin/users');
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
