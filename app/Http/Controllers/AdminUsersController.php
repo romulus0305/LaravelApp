@@ -82,7 +82,7 @@ class AdminUsersController extends Controller
      
         User::create($input);
 
-        Session::flash('user_created','User successfull created');
+        Session::flash('user_created','User created!');
 
         return redirect('admin/users');
          
@@ -159,7 +159,7 @@ class AdminUsersController extends Controller
 
          $user->update($input);
 
-         Session::flash('user_edited','User has been edited!');
+         Session::flash('user_edited','User updated!');
 
          return redirect('/admin/users');
 
@@ -189,7 +189,7 @@ class AdminUsersController extends Controller
         $user->delete();
 
         //prikazivanje poruke posle brisanja
-        Session::flash('deleted_user','User has been deleted!');
+        Session::flash('deleted_user','User deleted!');
 
 
 

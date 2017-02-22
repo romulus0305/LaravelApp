@@ -10,9 +10,9 @@
     <thead>
       <tr>
         <th>Id</th>
-        <th>Author</th>
-        <th>Category</th>
         <th>Photo</th>
+        <th>Owner</th>
+        <th>Category</th>
         <th>Title</th>
         <th>Text</th>
         <th>Created</th>
@@ -26,14 +26,14 @@
    		
    	
       <tr>
-        <td>{{$post->id}}</td>
-        <td>{{$post->user_id}}</td>
-        <td>{{$post->category_id}}</td>
-        <td>{{$post->photo_id}}</td>
+      <td>{{$post->id}}</td>
+      <td><img height="70px" src="{{$post->photo['path'] ? $post->photo['path'] : 'https://placeholdit.imgix.net/~text?txtsize=14&txt=150%C3%97150&w=150&h=150' }}"></td>
+        <td>{{$post->user['name']}}</td>
+        <td>{{$post->category['name'] ? $post->category['name'] : 'No Category' }}</td>
         <td>{{$post->title}}</td>
         <td>{{$post->body}}</td>
-        <td>{{$post->created_at}}</td>
-        <td>{{$post->updated_at}}</td>
+        <td>{{$post->created_at->diffForHumans()}}</td>
+        <td>{{$post->updated_at->diffForHumans()}}</td>
       </tr>
 
 @endforeach

@@ -66,7 +66,11 @@ public function isAdmin()
 
 
 
-
+public function posts()
+{
+   
+   return $this->hasMany('App\Post');
+}
 
 
 

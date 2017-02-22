@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-
+use App\Http\Requests\PostCreateRequest;
 
 use App\Photo;
 use App\User;
 use App\Post;
-
+use App\Category;
+use Illuminate\Support\Facades\Auth;
 
 class AdminPostController extends Controller
 {
@@ -35,7 +36,8 @@ class AdminPostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        $categories = Category::lists('name','id')->all();
+        return view('admin.posts.create',compact('categories'));
     }
 
     /**
@@ -44,10 +46,35 @@ class AdminPostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostCreateRequest $request)
     {
-        //
+
+        $input = $request->all();
+        $user = Auth::user();
+        // $input['user_id'] = $user->id;
+
+       if ($file = $request->file('photo_id')) {
+           $name = time() . $file->getClientOriginalName();
+           $file->move('images',$name);
+           $photo = Photo::create(['path'=>$name]);
+           $input['photo_id'] = $photo->id;
+        }
+
+//Cuva u posts tabeli i upisuje user_id  
+$user->posts()->create($input);
+
+return redirect('admin/posts');
+
+
     }
+
+
+
+
+
+
+
+
 
     /**
      * Display the specified resource.
