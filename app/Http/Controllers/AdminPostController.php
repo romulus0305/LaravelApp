@@ -23,7 +23,7 @@ class AdminPostController extends Controller
      */
     public function index()
     {
-
+          
 
         $posts = Post::all();
        return view('admin.posts.index',compact('posts'));
@@ -95,7 +95,11 @@ return redirect('admin/posts');
      */
     public function edit($id)
     {
-       return view('admin.posts.edit');
+
+        $categories = Category::lists('name','id')->all();
+        $post = Post::findOrFail($id);
+
+       return view('admin.posts.edit',compact('post','categories'));
     }
 
     /**
@@ -107,7 +111,57 @@ return redirect('admin/posts');
      */
     public function update(Request $request, $id)
     {
-        //
+
+        //Moj kod za update postova 
+        //zakomentarisi Auth::user deo
+        $post = Post::findOrFail($id);
+        $input = $request->all();
+
+                //Da li ima fotke sa forme?
+             if ($file = $request->file('photo_id')) {
+                    //da li ima fotke u bazi?
+                    if($post->photo)
+                    {
+                        
+                        $photoId =  $post->photo->id;
+                        unlink(public_path().$post->photo->path);
+                        $name = time() . $file->getClientOriginalName();
+                        $file->move('images',$name);
+                    // $photo = Photo::create(['path'=>$name]);
+                        $photo = Photo::whereId($photoId)->update(['path'=>$name]);
+                        $input['photo_id'] = $photoId;
+        // return $input;
+                    }    
+                    else
+                    {
+                        $name = time() . $file->getClientOriginalName();
+                        $file->move('images',$name);
+                        $photo = Photo::create(['path'=>$name]);
+                        // $photo = Photo::whereId($photoId)->update(['path'=>$name]);
+                        $input['photo_id'] = $photo->id;
+                    }
+
+
+                }
+
+        
+        //     //da samo ulogovani korisnik moze da edituje SVOJE postove 
+           $post =  Auth::user()->posts()->whereId($id)->first();
+
+
+        //     //Brise staru fotku iz foldera images i postavlja novu pri apdejtu
+        //    //imena starih fotki ostaju u tabeli photos
+        //     if($post->photo){
+        //     unlink(public_path().$post->photo->path);
+        //     }
+
+        //     //Ove moze ko hoces da edituje sve postove MOJ KOD
+            $post->update($input);
+            return redirect('admin/posts');
+         
+
+
+
     }
 
     /**

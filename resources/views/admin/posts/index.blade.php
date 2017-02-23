@@ -28,9 +28,9 @@
       <tr>
       <td>{{$post->id}}</td>
       <td><img height="70px" src="{{$post->photo['path'] ? $post->photo['path'] : 'https://placeholdit.imgix.net/~text?txtsize=14&txt=150%C3%97150&w=150&h=150' }}"></td>
-        <td>{{$post->user['name']}}</td>
+        <td>{{$post->user['name'] }}</td>
         <td>{{$post->category['name'] ? $post->category['name'] : 'No Category' }}</td>
-        <td>{{$post->title}}</td>
+        <td><a href=" {{ route('admin.posts.edit',$post->id) }} ">{{$post->title}}</a></td>
         <td>{{$post->body}}</td>
         <td>{{$post->created_at->diffForHumans()}}</td>
         <td>{{$post->updated_at->diffForHumans()}}</td>

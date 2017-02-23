@@ -3,7 +3,7 @@
 use App\Role;
 use App\User;
 
-
+use Illuminate\Support\Facades\Auth;
 /*
 Pravim View-ove u admin 
 Pravim model Role
@@ -92,7 +92,15 @@ Route::group(['middleware'=>'admin'],function(){
 
 
 
+Route::get('role', function() {
 
+
+
+return Auth::user()->hasRole();
+
+
+
+});
 
 // Route::get('role', function() {
    
