@@ -24,7 +24,7 @@
 
 <div class="col-sm-9">
 
-{!! Form::model($user,['method'=>'PATCH','action'=>['AdminUsersController@update',$user->id],'files'=>true]) !!}
+{!! Form::model($user,['method'=>'PATCH','action'=>['AdminUsersController@update',$user->id],'files'=>true]) !!} 	{{-- Create Forma --}}
 
 <div class="form-group">
 
@@ -75,11 +75,11 @@
 </div>
 
 
-{!! Form::close() !!}
+{!! Form::close() !!} 	{{-- / Create Forma --}}
 
 
 
-{!! Form::open(['method'=>'DELETE','action'=>['AdminUsersController@destroy',$user->id]]) !!}
+{!! Form::open(['method'=>'DELETE','action'=>['AdminUsersController@destroy',$user->id]]) !!} 	{{-- Delete Forma --}}
 
 
 
@@ -87,22 +87,22 @@
 	{!!Form::submit('Delete',['class'=>'btn btn-danger  col-sm-6']) !!}
 </div>
 
-{!! Form::close() !!}
+{!! Form::close() !!} 	{{-- Delete Forma --}}
 
 
 
 
 
 
-</div>
+</div> {{--  / col-sm-9 --}}
 
 
-</div> {{-- form div row--}}
+</div> {{--/  row--}}
 
 
 <div class="row">
 	
-@include('includes.formError')
+@include('includes.formError') 	{{-- show errors --}}
 
 
 </div>

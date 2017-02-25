@@ -14,9 +14,22 @@
 
 <h2>Edit Post</h2>
 
+
+
+
+<div class="col-sm-3">
+		
+<img class="img-responsive img-rounded" src="{{$post->photo['path'] ? $post->photo['path'] : '/images/post.jpg'}}" alt="photo">
+</div>
+
+
+
+
 <div class="row">
 
-{!! Form::model($post,['method'=>'PATCH','action'=>['AdminPostController@update',$post->id],'files'=>true]) !!}
+<div class="col-sm-9">
+
+{!! Form::model($post,['method'=>'PATCH','action'=>['AdminPostController@update',$post->id],'files'=>true]) !!} {{-- Create Forma --}}
 
 <div class="form-group">
 
@@ -48,18 +61,38 @@
 </div>
 
 
+
+
 <div class="form-group">
-
-
-{!!Form::submit('Create Post',['class'=>'btn btn-primary form-control']) !!}
-
+{!!Form::submit('submit',['class'=>'btn btn-primary col-sm-6']) !!}
 </div>
 
+{!! Form::close() !!} 	{{--  / Create Forma --}}
+
+
+
+
+
+{!! Form::open(['method'=>'DELETE','action'=>['AdminPostController@destroy',$post->id]]) !!} {{-- Delete Forma --}}
+
+<div class="form-group">
+	{!!Form::submit('Delete',['class'=>'btn btn-danger  col-sm-6']) !!}
 </div>
 
+{!! Form::close() !!} 	{{-- Delete Forma --}}
 
-@include('includes.formError')
 
 
+
+</div> {{-- col-sm-9 --}}
+
+</div> {{-- row --}}
+
+
+<div class="row">
+
+@include('includes.formError') {{-- show errors --}}
+
+</div>
 
 @stop

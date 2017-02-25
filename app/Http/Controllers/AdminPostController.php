@@ -172,6 +172,21 @@ return redirect('admin/posts');
      */
     public function destroy($id)
     {
-        //
+        // return $id;
+        $post = Post::findOrFail($id);
+        unlink(public_path().$post->photo->path);
+        $post->photo->delete();
+        $post->delete();
+        return redirect('admin/posts');
+
     }
+
+
+
+
+
+
+
+
+
 }
