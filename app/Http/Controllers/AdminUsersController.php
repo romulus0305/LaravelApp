@@ -130,14 +130,9 @@ class AdminUsersController extends Controller
 
 
 
+        // $user = User::findOrFail($id);
 
-
-
-
-
-        $user = User::findOrFail($id);
-
-        //Ako je pasvord prazan ili ako ga ima da ga kriptuje
+        // //Ako je pasvord prazan ili ako ga ima da ga kriptuje
         if (trim($request->password) == '') {
             $input = $request->except('password');
         }
@@ -150,22 +145,81 @@ class AdminUsersController extends Controller
 
        
        
-         if ($file = $request->file('photo_id')) {
-            $name = time() . $file->getClientOriginalName();
-            $file->move('images',$name); 
-            $photo = Photo::create(['path'=> $name]);
-            $input['photo_id'] = $photo->id;
-         }
+        //  if ($file = $request->file('photo_id')) {
+        //     $name = time() . $file->getClientOriginalName();
+        //     $file->move('images',$name); 
+        //     $photo = Photo::create(['path'=> $name]);
+        //     $input['photo_id'] = $photo->id;
+        //  }
 
-         $user->update($input);
+        //  $user->update($input);
 
-         Session::flash('user_edited','User updated!');
+        //  Session::flash('user_edited','User updated!');
 
-         return redirect('/admin/users');
+        //  return redirect('/admin/users');
 
 
 
-       
+        $input = $request->all();
+        $user = User::findOrFail($id);
+
+               if (trim($request->password) == '') {
+                    $input = $request->except('password');
+                }
+                else
+                {   
+                    $input = $request->all();
+                    $input['password'] = trim(bcrypt($request->password));
+
+                }
+
+                //Da li ima fotke sa forme?
+             if ($file = $request->file('photo_id')) {
+                    //da li ima fotke u bazi?
+                    if($user->photo)
+                    {
+                        
+                        $photoId =  $user->photo->id;
+                        unlink(public_path().$user->photo->path);
+                        $name = time() . $file->getClientOriginalName();
+                        $file->move('images',$name);
+                    // $photo = Photo::create(['path'=>$name]);
+                        $photo = Photo::whereId($photoId)->update(['path'=>$name]);
+                        $input['photo_id'] = $photoId;
+        // return $input;
+                    }    
+                    else
+                    {
+                        $name = time() . $file->getClientOriginalName();
+                        $file->move('images',$name);
+                        $photo = Photo::create(['path'=>$name]);
+                        // $photo = Photo::whereId($photoId)->update(['path'=>$name]);
+                        $input['photo_id'] = $photo->id;
+                    }
+
+
+                }
+
+
+
+                $user->update($input);
+                return redirect('admin/users');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     }

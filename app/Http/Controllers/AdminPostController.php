@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\Http\Requests\PostCreateRequest;
+use App\Http\Requests\PostEditRequest;
+
 
 use App\Photo;
 use App\User;
@@ -109,13 +111,12 @@ return redirect('admin/posts');
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostEditRequest $request, $id)
     {
 
-        //Moj kod za update postova 
-        //zakomentarisi Auth::user deo
-        $post = Post::findOrFail($id);
         $input = $request->all();
+        $post = Post::findOrFail($id);
+      
 
                 //Da li ima fotke sa forme?
              if ($file = $request->file('photo_id')) {
