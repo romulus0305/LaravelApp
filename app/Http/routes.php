@@ -75,10 +75,11 @@ Route::group(['middleware'=>'admin'],function(){
 
  	Route::resource('admin/categories','AdminCategoryController');
 
+	Route::resource('admin/media','AdminMediaController'); 
 
 
-
-
+Route::get('admin/media/upload',['as'=>'admin.media.upload','uses'=>'AdminMediaController@store']);
+// ['as'=>'admin.media.upload'] Custum route name
 
 
 
