@@ -2,6 +2,7 @@
 
 use App\Role;
 use App\User;
+use App\Category;
 
 use Illuminate\Support\Facades\Auth;
 /*
@@ -66,16 +67,13 @@ Route::get('/home', 'HomeController@index');
 Route::group(['middleware'=>'admin'],function(){
 
 	
-	Route::get('/admin', function(){ 
-		return view('admin.index'); 
-	});
-
+	
 
 	Route::resource('/admin/users','AdminUsersController');
 
 	Route::resource('/admin/posts','AdminPostController');
 
-
+ 	Route::resource('admin/categories','AdminCategoryController');
 
 
 
@@ -89,18 +87,13 @@ Route::group(['middleware'=>'admin'],function(){
 });
 
 
+Route::get('/admin', function(){ 
+		return view('admin.index'); 
+	});
 
 
 
-Route::get('role', function() {
 
-
-
-return Auth::user()->hasRole();
-
-
-
-});
 
 // Route::get('role', function() {
    

@@ -29,7 +29,7 @@
 
 <div class="col-sm-9">
 
-{!! Form::model($post,['method'=>'PATCH','action'=>['AdminPostController@update',$post->id],'files'=>true]) !!} {{-- Create Forma --}}
+{!! Form::model($post,['method'=>'PATCH','action'=>['AdminPostController@update',$post->id],'files'=>true]) !!} {{-- Edit Forma --}}
 
 <div class="form-group">
 
@@ -67,7 +67,7 @@
 {!!Form::submit('submit',['class'=>'btn btn-primary col-sm-6']) !!}
 </div>
 
-{!! Form::close() !!} 	{{--  / Create Forma --}}
+{!! Form::close() !!} 	{{--  / Edit Forma --}}
 
 
 

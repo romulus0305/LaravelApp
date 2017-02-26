@@ -175,9 +175,12 @@ return redirect('admin/posts');
     {
         // return $id;
         $post = Post::findOrFail($id);
-        unlink(public_path().$post->photo->path);
-        $post->photo->delete();
-        $post->delete();
+        if ($post->photo) {
+          unlink(public_path().$post->photo->path);
+          $post->photo->delete();
+        }
+       
+       $post->delete();
         return redirect('admin/posts');
 
     }

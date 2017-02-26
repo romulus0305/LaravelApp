@@ -20,6 +20,8 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->text('body');
             $table->timestamps();
+            //za brisanje korisnika i svih njegovih podataka lekcija 239
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

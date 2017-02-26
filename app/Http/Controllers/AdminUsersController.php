@@ -235,14 +235,13 @@ class AdminUsersController extends Controller
         
 
         $user = User::findOrFail($id);
-
-
         //Brisanje fotke iz foldera
-        unlink(public_path() . $user->photo->path);
-        
-        $user->delete();
-
-        //prikazivanje poruke posle brisanja
+        if ($user->photo) {
+            unlink(public_path() . $user->photo->path);
+            $user->photo->delete();
+        }
+         $user->delete();
+         //prikazivanje poruke posle brisanja
         Session::flash('deleted_user','User deleted!');
 
 
