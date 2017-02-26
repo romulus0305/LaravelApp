@@ -12,7 +12,7 @@
 <h2>Categories</h2>
 
 
-
+<div class="row">
 
 <div class="col-sm-6">
 	
@@ -78,8 +78,10 @@
 @endif
 
 </div>
+</div>
 
-
-
+<div class="row">
+@include('includes.formError')
+</div>
 
 @stop

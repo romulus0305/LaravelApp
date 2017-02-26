@@ -36,6 +36,7 @@
 
 </div>
 
+{!! Form::close() !!} 	{{-- Edit Forma --}}
 
 
 
@@ -54,6 +55,10 @@
 </div>
 
  
+
+<div class="row">
+@include('includes.formError')
+</div>
 
 @stop
 

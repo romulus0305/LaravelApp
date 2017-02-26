@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\Category;
+use App\Http\Requests\CategoriesRequest;
 
 class AdminCategoryController extends Controller
 {
@@ -33,24 +34,14 @@ class AdminCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoriesRequest $request)
     {
         $category = $request->all();
         Category::create($category);
         return redirect('admin/categories');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
+    
     /**
      * Show the form for editing the specified resource.
      *
@@ -61,7 +52,7 @@ class AdminCategoryController extends Controller
     {
        
         $category = Category::findOrFail($id);
-        return view('admin.categories.edit',compact('category','back'));
+        return view('admin.categories.edit',compact('category'));
     }
 
     /**
@@ -71,11 +62,16 @@ class AdminCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoriesRequest $request, $id)
     {
+       
+
+      
+
+
         $category = Category::findOrFail($id);
         $category->update($request->all());
-        return redirect('admin/categories');
+        return redirect('/admin/categories');
 
     }
 
@@ -85,9 +81,9 @@ class AdminCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(CategoriesRequest $request,$id)
     {
        Category::findOrFail($id)->delete();
-       redirect('admin/categories');
+       return redirect('/admin/categories');
     }
 }
