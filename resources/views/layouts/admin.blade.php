@@ -15,7 +15,7 @@
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
 
     <link href="{{asset('css/libs.css')}}" rel="stylesheet">
-
+    @yield('styles')
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -186,7 +186,7 @@
                             </li>
 
                             <li>
-                                <a href=" {{ route('admin.media.upload') }} ">Upload Media</a>
+                                <a href=" {{ route('admin.media.create') }} ">Upload Media</a>
                             </li>
 
                         </ul>

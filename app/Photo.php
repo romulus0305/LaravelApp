@@ -31,4 +31,41 @@ public function getPathAttribute($photo)
 
 
 
+public function post()
+{
+	return $this->hasOne('App\Post');
+}
+
+
+
+public function user()
+{
+	return $this->hasOne('App\User');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

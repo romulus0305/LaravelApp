@@ -3,6 +3,7 @@
 use App\Role;
 use App\User;
 use App\Category;
+use App\Photo;
 
 use Illuminate\Support\Facades\Auth;
 /*
@@ -77,9 +78,9 @@ Route::group(['middleware'=>'admin'],function(){
 
 	Route::resource('admin/media','AdminMediaController'); 
 
-
-Route::get('admin/media/upload',['as'=>'admin.media.upload','uses'=>'AdminMediaController@store']);
-// ['as'=>'admin.media.upload'] Custum route name
+//Pravljenje rute 
+// Route::get('admin/media/upload',['as'=>'admin.media.upload','uses'=>'AdminMediaController@store']);
+// ['as'=>'admin.media.upload']  imen rute -- name u tabeli kada napravim resource rutu
 
 
 
@@ -96,17 +97,13 @@ Route::get('/admin', function(){
 
 
 
-// Route::get('role', function() {
-   
-// $user = User::find(15);
+Route::get('photo', function() {
+    
+ $photo = Photo::find(1);
 
-// return $user->role;
+return $photo->user->name;
 
-
-
-
-// });
-
+});
 
 
 
