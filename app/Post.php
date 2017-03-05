@@ -37,6 +37,8 @@ public function photo()
 }
 
 
+
+
 public function category()
 {
 	return	$this->belongsTo('App\Category');
@@ -47,7 +49,10 @@ public function category()
 
 
 
-
+public function comments()
+{
+	return $this->hasMany('App\Comment');
+}
 
 
 

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePhotosTable extends Migration
+class AddPhotoColumnToCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,8 @@ class CreatePhotosTable extends Migration
      */
     public function up()
     {
-        Schema::create('photos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('path')->default('post.jpg');
-            $table->timestamps();
+        Schema::table('comments', function (Blueprint $table) {
+            $table->string('photo');
         });
     }
 
@@ -26,6 +24,8 @@ class CreatePhotosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('photos');
+        Schema::table('comments', function (Blueprint $table) {
+            $table->dropColumn('photo');
+        });
     }
 }

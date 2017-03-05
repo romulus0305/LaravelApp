@@ -34,6 +34,8 @@
         <td>{{$post->body}}</td>
         <td>{{$post->created_at->diffForHumans()}}</td>
         <td>{{$post->updated_at->diffForHumans()}}</td>
+        <td> <a  class="btn btn-info" href="{{ route('home.post',$post->id)}}">View Post</a></td>
+        <td> <a  class="btn btn-info" href="{{ route('admin.comments.show',$post->id)}}">View Comment</a></td>
       </tr>
 
 @endforeach

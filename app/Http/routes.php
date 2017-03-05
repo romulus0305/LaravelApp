@@ -1,5 +1,26 @@
 <?php
 
+
+/* 
+GRESKE
+Ako korisnik nema fotku i iskomentarise post izacice greska
+Ako post nema fotku izlaze greske
+
+
+
+*/
+
+/* 
+ako brisem migracije rucno i posle toga se pojave problemi
+kucam u konzoli
+
+composer dump-autoload 
+*/
+
+
+
+
+
 use App\Role;
 use App\User;
 use App\Category;
@@ -57,7 +78,10 @@ make:auth
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+//Ovo sam ja napravio
+Route::get('/post/category/{id}',['as'=>'category.post','uses'=>'AdminPostController@category']);
 
+Route::get('/post/{id}',['as'=>'home.post','uses'=>'AdminPostController@post']); 
 
 
 /* 
@@ -68,7 +92,9 @@ Route::get('/home', 'HomeController@index');
 Route::group(['middleware'=>'admin'],function(){
 
 	
-	
+	Route::get('/admin', function(){ 
+		return view('admin.index'); 
+	});
 
 	Route::resource('/admin/users','AdminUsersController');
 
@@ -78,20 +104,26 @@ Route::group(['middleware'=>'admin'],function(){
 
 	Route::resource('admin/media','AdminMediaController'); 
 
+
+	Route::Resource('admin/comments','PostCommentsController');
+
+	Route::Resource('admin/comment/replies','CommentRepliesController');
+
+
+
+
+
+
 //Pravljenje rute 
 // Route::get('admin/media/upload',['as'=>'admin.media.upload','uses'=>'AdminMediaController@store']);
 // ['as'=>'admin.media.upload']  imen rute -- name u tabeli kada napravim resource rutu
 
 
 
-
-
 });
 
 
-Route::get('/admin', function(){ 
-		return view('admin.index'); 
-	});
+
 
 
 
