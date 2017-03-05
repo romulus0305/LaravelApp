@@ -27,7 +27,7 @@
    	
       <tr>
       <td>{{$post->id}}</td>
-      <td><img height="70px" src="{{$post->photo['path'] ? $post->photo['path'] : '/images/post.jpg' }}"></td>
+      <td><img height="70px" src="{{$post->photo['path']}}"></td>
         <td>{{$post->user['name'] }}</td>
         <td>{{$post->category['name'] ? $post->category['name'] : 'No Category' }}</td>
         <td><a href=" {{ route('admin.posts.edit',$post->id) }} ">{{$post->title}}</a></td>

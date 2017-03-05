@@ -19,7 +19,7 @@
 
 <div class="col-sm-3">
 		
-<img class="img-responsive img-rounded" src="{{$post->photo['path'] ? $post->photo['path'] : '/images/post.jpg'}}" alt="photo">
+<img class="img-responsive img-rounded" src="{{$post->photo['path']}}" alt="photo">
 </div>
 
 

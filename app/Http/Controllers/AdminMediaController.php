@@ -62,10 +62,36 @@ class AdminMediaController extends Controller
 
 
 
-		$photo = Photo::findOrFail($id);
-		unlink( public_path() . $photo->path);
-		$photo->delete();
-		return redirect('/admin/media');
+
+
+
+			$photo = Photo::findOrFail($id);
+
+		if ($photo) 
+		{
+		
+
+				if ($photo->path == '/images/post.png') {
+					$photo->delete();
+				}
+				elseif ($photo->path == '/images/user.png') {
+					$photo->delete();
+				}
+				else
+				{
+					unlink( public_path() . $photo->path);
+					$photo->delete();
+						
+				}
+				
+				return redirect('/admin/media');
+		}
+
+
+
+
+
+
 
 	}
 

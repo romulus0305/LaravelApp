@@ -40,7 +40,7 @@ class AdminUsersController extends Controller
     {
          //Koristi se za input role u formi    
          $roles = Role::lists('name','id')->all(); 
-         //Daje listu JSON edvi sisa kurac
+      
          //('name','id') mora ovim redom zato sto kada dodje do select kontrole bira se name a salje se id
         return view('admin.users.create',compact('roles'));
     }
@@ -74,9 +74,14 @@ class AdminUsersController extends Controller
             $name = time() . $file->getClientOriginalName();
             $file->move('images',$name);
             //Cuvanje fotke u bazi u tabeli photos
-            $photo = Photo::create(['path'=> $name]);
+            $photo = Photo::create(['path'=>$name]);
             //Dodavanje id novosacuvane fotke da bi ga sacuvao u tabeli users
             $input['photo_id'] = $photo->id;
+        }
+        else
+        {
+         $photo = Photo::create(['path'=>'user.png']);  
+         $input['photo_id'] = $photo->id; 
         }
         
      
@@ -145,18 +150,6 @@ class AdminUsersController extends Controller
 
        
        
-        //  if ($file = $request->file('photo_id')) {
-        //     $name = time() . $file->getClientOriginalName();
-        //     $file->move('images',$name); 
-        //     $photo = Photo::create(['path'=> $name]);
-        //     $input['photo_id'] = $photo->id;
-        //  }
-
-        //  $user->update($input);
-
-        //  Session::flash('user_edited','User updated!');
-
-        //  return redirect('/admin/users');
 
 
 
@@ -183,7 +176,7 @@ class AdminUsersController extends Controller
                         unlink(public_path().$user->photo->path);
                         $name = time() . $file->getClientOriginalName();
                         $file->move('images',$name);
-                    // $photo = Photo::create(['path'=>$name]);
+           
                         $photo = Photo::whereId($photoId)->update(['path'=>$name]);
                         $input['photo_id'] = $photoId;
         // return $input;
@@ -193,7 +186,7 @@ class AdminUsersController extends Controller
                         $name = time() . $file->getClientOriginalName();
                         $file->move('images',$name);
                         $photo = Photo::create(['path'=>$name]);
-                        // $photo = Photo::whereId($photoId)->update(['path'=>$name]);
+                       
                         $input['photo_id'] = $photo->id;
                     }
 
@@ -235,16 +228,23 @@ class AdminUsersController extends Controller
         
 
         $user = User::findOrFail($id);
-        //Brisanje fotke iz foldera
-        if ($user->photo) {
-            unlink(public_path() . $user->photo->path);
-            $user->photo->delete();
-        }
-         $user->delete();
-         //prikazivanje poruke posle brisanja
+        if ($user->photo){
+
+            if ($user->photo->path =='/images/user.png') {
+                $user->photo->delete();
+               
+            }
+            else
+            {
+                unlink(public_path().$user->photo->path);
+                $user->photo->delete();
+            } 
+        
+        }   
+
+        $user->delete();
+        
         Session::flash('deleted_user','User deleted!');
-
-
 
         return redirect('/admin/users');
 

@@ -61,6 +61,11 @@ class AdminPostController extends Controller
            $photo = Photo::create(['path'=>$name]);
            $input['photo_id'] = $photo->id;
         }
+        else
+        {
+            $photo = Photo::create(['path'=>'post.png']);
+            $input['photo_id'] = $photo->id;   
+        }
 
 //Cuva u posts tabeli i upisuje user_id  
 $user->posts()->create($input);
@@ -175,13 +180,22 @@ return redirect('admin/posts');
     {
         // return $id;
         $post = Post::findOrFail($id);
-        if ($post->photo) {
-          unlink(public_path().$post->photo->path);
-          $post->photo->delete();
+
+        if ($post->photo){
+
+            if ($post->photo->path =='/images/post.png') {
+                $post->photo->delete();
+               
+            }
+            else
+            {
+                unlink(public_path().$post->photo->path);
+                $post->photo->delete();
+            } 
+
         }
-       
        $post->delete();
-        return redirect('admin/posts');
+       return redirect('admin/posts');
 
     }
 
