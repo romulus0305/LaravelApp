@@ -206,23 +206,17 @@ return redirect('admin/posts');
         //Ova metoda nije u middlewaru
         public function post($id)
         {
-            // $categories = Category::all();
-             $categories = Category::pluck('name','id')->all();
+           
+             // $categories = Category::pluck('name','id')->all();
 
-
-
-
-            // samo odredjena polja uzima vraca kolekciju
-                $categories = Category::get(['id','name']);
-            //  // dd($categories);
             $post = Post::findOrFail($id);
-            return view('post',compact('post','categories'));
+            $categories = Category::get(['id','name']);
+            $comments = $post ->comments()->whereIsActive(1)->orderBy('created_at','desc')->get();
+          
+            
+            return view('post',compact('post','categories','comments'));
 
-
-
-
-            // $categories = Category::get(['id','name']);
-            dd($categories);
+  
         }
 
 

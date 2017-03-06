@@ -14,6 +14,7 @@ protected $fillable = [
 'is_active',
 'author',
 'email',
+'photo',
 'body'
 
 

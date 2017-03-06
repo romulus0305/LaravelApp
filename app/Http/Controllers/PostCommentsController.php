@@ -46,11 +46,6 @@ class PostCommentsController extends Controller
 
 
         $user = Auth::user();
-
-
-
-
-        $user = Auth::user();
       
         $data =
         [

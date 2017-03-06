@@ -124,18 +124,17 @@ Route::group(['middleware'=>'admin'],function(){
 
 
 
+Route::group(['middleware'=>'auth'],function(){
 
 
 
 
+Route::post('comment/reply','CommentRepliesController@createReply');
 
-Route::get('photo', function() {
-    
- $photo = Photo::find(1);
 
-return $photo->user->name;
+
+
 
 });
-
 
 
