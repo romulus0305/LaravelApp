@@ -81,6 +81,7 @@ class CommentRepliesController extends Controller
 
         CommentReply::create($data);
 
+        // Flash poruka pri pravljenju reply-a
         $request->session()->flash('reply_msg','Reply message has been submited and is waitnig moderation');
 
         return redirect()->back();

@@ -196,6 +196,9 @@ class AdminUsersController extends Controller
 
 
                 $user->update($input);
+
+                 Session::flash('user_updated','User updated!');
+
                 return redirect('admin/users');
 
 

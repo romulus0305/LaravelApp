@@ -354,9 +354,9 @@
 <p class="bg-success col-sm-6">{{ session('user_created') }}</p>
 
 @endif
-@if (Session::has('user_edited'))
+@if (Session::has('user_updated'))
 
-<p class="bg-info col-sm-6">{{ session('user_edited') }}</p>
+<p class="bg-info col-sm-6">{{ session('user_updated') }}</p>
 
 @endif
 @if (Session::has('deleted_user'))

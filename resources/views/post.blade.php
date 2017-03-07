@@ -42,8 +42,11 @@
                                                 <p> {{$post->body}} </p>
 
                                                 <hr>
+                                                
                                 @if (Session::has('comment_msg'))
                                    {{session('comment_msg')}}
+                                @elseif(Session::has('reply_msg'))
+                                 {{session('reply_msg')}}  
                                 @endif
                                                 <!-- Blog Comments -->
 

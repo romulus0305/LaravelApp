@@ -204,14 +204,14 @@ return redirect('admin/posts');
 
 
         //Ova metoda nije u middlewaru
-        public function post($id)
+        public function post($slug)
         {
            
              // $categories = Category::pluck('name','id')->all();
 
 
             // logika za komentar za aktivaciju i deaktivaciju
-            $post = Post::findOrFail($id);
+            $post = Post::findBySlugOrFail($slug);
             $categories = Category::get(['id','name']);
             $comments = $post ->comments()->whereIsActive(1)->orderBy('created_at','desc')->get();
           
