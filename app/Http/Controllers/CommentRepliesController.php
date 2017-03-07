@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use App\CommentReply;
+use App\Comment;
 
 class CommentRepliesController extends Controller
 {
@@ -17,7 +18,17 @@ class CommentRepliesController extends Controller
      */
     public function index()
     {
-        //
+        
+
+        
+
+
+
+
+
+
+
+
     }
 
     /**
@@ -40,6 +51,15 @@ class CommentRepliesController extends Controller
     {
         //
     }
+
+
+
+
+
+
+
+
+
 
 
     public function createReply(Request $request)
@@ -91,7 +111,12 @@ class CommentRepliesController extends Controller
      */
     public function show($id)
     {
-        //
+        //Vadi replike za svaki komentar uz pomoc metode iz modela Comment    
+        $replies = Comment::findOrFail($id)->replies;
+        return view('admin.comments.replies.show',compact('replies'));
+
+
+
     }
 
     /**
@@ -114,7 +139,12 @@ class CommentRepliesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+
+        $reply = CommentReply::findOrFail($id);
+        $reply->update($request->all());
+        return redirect()->back();
+
     }
 
     /**
@@ -125,6 +155,7 @@ class CommentRepliesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $reply = CommentReply::findOrFail($id)->delete();
+        return redirect()->back();
     }
 }

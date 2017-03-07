@@ -209,6 +209,8 @@ return redirect('admin/posts');
            
              // $categories = Category::pluck('name','id')->all();
 
+
+            // logika za komentar za aktivaciju i deaktivaciju
             $post = Post::findOrFail($id);
             $categories = Category::get(['id','name']);
             $comments = $post ->comments()->whereIsActive(1)->orderBy('created_at','desc')->get();

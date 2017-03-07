@@ -37,9 +37,9 @@
 				<td>{{$comment->author}}</td>
 				<td>{{$comment->email}}</td>
 				<td> <a class="btn btn-info" href="{{route('home.post',$comment->post->id)}}">View Post</a></td>
-				{{-- <td>{{$comment->created_at->toRfc850String()}}</td> --}}
+				<td> <a class="btn btn-info" href="{{route('admin.comment.replies.show',$comment->id)}}">View Reply</a></td> 
 				<td>
-
+				
 					@if ($comment->is_active == 1)
 
 
@@ -80,6 +80,7 @@
 
 					@endif
 				</td>
+				
 				<td>
 
 

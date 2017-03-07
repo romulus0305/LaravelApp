@@ -81,6 +81,7 @@ class PostCommentsController extends Controller
 
         $post = Post::findOrFail($id);
         $comment = $post->comments;
+        // return $reply = $comment->replies;
         return view('admin.comments.show',compact('comment'));
     }
 
